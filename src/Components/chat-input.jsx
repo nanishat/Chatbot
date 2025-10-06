@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+
 function ChatInput({ chatMessages, setChatMessages }) {
 
   const [inputText, setInputText] = useState('');
@@ -19,6 +20,20 @@ function ChatInput({ chatMessages, setChatMessages }) {
     ]
 
     setChatMessages(newChatMessages)
+
+    // const Chatbot = new window.Chatbot;
+    // eslint-disable-next-line no-undef
+    const response = Chatbot.getResponse(inputText);
+    setChatMessages([
+      ...newChatMessages,
+      {
+        message: response,
+        sender: 'robot',
+        key: crypto.randomUUID()
+      }
+    ])
+
+    setInputText('');
   }
 
   return (
