@@ -4,6 +4,7 @@ import { useState } from "react";
 function ChatInput({ chatMessages, setChatMessages }) {
 
   const [inputText, setInputText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   function saveInputText(event) {
     setInputText(event.target.value);
@@ -17,7 +18,7 @@ function ChatInput({ chatMessages, setChatMessages }) {
     }
   }
 
-  function sendMessage() {
+  async function sendMessage() {
     const newChatMessages = [
       ...chatMessages,
       {
@@ -29,9 +30,25 @@ function ChatInput({ chatMessages, setChatMessages }) {
 
     setChatMessages(newChatMessages)
 
+    if (isLoading || inputText === '') {
+      return;
+    }
+    setIsLoading(true);
+
+    setInputText('');
+
+    setChatMessages([
+      ...newChatMessages,
+      {
+        message: 'Loading...',
+        sender: 'robot',
+        key: crypto.randomUUID()
+      }
+    ])
+
     // const Chatbot = new window.Chatbot;
     // eslint-disable-next-line no-undef
-    const response = Chatbot.getResponse(inputText);
+    const response = await Chatbot.getResponseAsync(inputText);
     setChatMessages([
       ...newChatMessages,
       {
@@ -40,8 +57,7 @@ function ChatInput({ chatMessages, setChatMessages }) {
         key: crypto.randomUUID()
       }
     ])
-
-    setInputText('');
+    setIsLoading(false);
   }
 
   return (
