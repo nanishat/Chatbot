@@ -9,6 +9,14 @@ function ChatInput({ chatMessages, setChatMessages }) {
     setInputText(event.target.value);
   }
 
+  function handleKeyDown(event) {
+    if (event.key === 'Enter') {
+      sendMessage();
+    } else if (event.key === 'Escape') {
+      setInputText('');
+    }
+  }
+
   function sendMessage() {
     const newChatMessages = [
       ...chatMessages,
@@ -43,6 +51,7 @@ function ChatInput({ chatMessages, setChatMessages }) {
         size="30"
         onChange={saveInputText}
         value={inputText}
+        onKeyDown={handleKeyDown}
       />
       <button
         onClick={sendMessage}
