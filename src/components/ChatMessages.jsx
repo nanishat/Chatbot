@@ -1,8 +1,11 @@
-import ChatMessage from "./chat-message";
+import ChatMessage from "./ChatMessage";
+import './ChatMessages.css';
 
 function ChatMessages({ chatMessages }) {
   return (
-    <>
+    <div
+      className="chat-messages-container"
+    >
       {chatMessages.map((chatMessage) => {
         return (
           <ChatMessage
@@ -12,7 +15,7 @@ function ChatMessages({ chatMessages }) {
           />
         );
       })}
-    </>
+    </div>
   );
 }
 

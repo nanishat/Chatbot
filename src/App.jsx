@@ -1,6 +1,7 @@
-import ChatInput from './Components/chat-input.jsx';
-import ChatMessages from './Components/chat-messages.jsx';
 import { useState } from "react";
+import ChatInput from './components/ChatInput';
+import ChatMessages from './components/ChatMessages';
+import './App.css'
 
 function App() {
   const [chatMessages, setChatMessages] = useState([{
@@ -22,15 +23,17 @@ function App() {
   }])
 
   return (
-    <>
+    <div
+      className="app-container"
+    >
+      <ChatMessages
+        chatMessages={chatMessages}
+      />
       <ChatInput
         chatMessages={chatMessages}
         setChatMessages={setChatMessages}
       />
-      <ChatMessages
-        chatMessages={chatMessages}
-      />
-    </>
+    </div>
   )
 }
 
