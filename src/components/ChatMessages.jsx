@@ -2,16 +2,24 @@ import { useEffect, useRef } from "react";
 import ChatMessage from "./ChatMessage";
 import './ChatMessages.css';
 
-function ChatMessages({ chatMessages }) {
-
-  const chatMessagesRef = useRef(null);
+// custom hooks
+function useAutoScroll(dependencies) {
+  const containerRef = useRef(null);
 
   useEffect(() => {
-    const containerElem = chatMessagesRef.current;
+    const containerElem = containerRef.current;
     if (containerElem) {
       containerElem.scrollTop = containerElem.scrollHeight;
     }
-  }, [chatMessages]);
+  }, [dependencies]);
+
+  return containerRef;
+}
+
+
+function ChatMessages({ chatMessages }) {
+
+  const chatMessagesRef = useAutoScroll([chatMessages]);
 
   return (
     <div

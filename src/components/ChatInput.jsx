@@ -36,6 +36,7 @@ function ChatInput({ chatMessages, setChatMessages }) {
     if (isLoading || inputText === '') {
       return;
     }
+
     setIsLoading(true);
 
     setInputText('');
